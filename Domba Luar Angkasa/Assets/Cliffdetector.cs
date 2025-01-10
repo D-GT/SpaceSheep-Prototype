@@ -67,7 +67,7 @@ public class Cliffdetector : MonoBehaviour
     {
         // Logika Game Over, misalnya kembali ke menu utama atau restart level
         Debug.Log("Game Over triggered!");
-        // Bisa tambahkan kode berikut jika pakai SceneManager
-        // SceneManager.LoadScene("GameOverScene");
+        Time.timeScale = 0f; // Menghentikan semua aktivitas game
+        // Anda juga bisa menampilkan UI Game Over di sini
     }
 }
