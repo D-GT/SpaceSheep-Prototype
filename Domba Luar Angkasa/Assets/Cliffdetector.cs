@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class Cliffdetector : MonoBehaviour
 {
+    public int maxSheepFalls = 10; // Batas maksimum domba yang boleh jatuh
+    private int sheepFallCount = 0; // Counter untuk domba yang jatuh
+
     private void OnTriggerStay2D(Collider2D other)
     {
         // Periksa jika yang masuk adalah domba atau pemain
-        if (other.CompareTag("Sheep") || other.CompareTag("Player"))
+        if (other != null && (other.CompareTag("Sheep") || other.CompareTag("Player")))
         {
             Collider2D objectCollider = other.GetComponent<Collider2D>();
             Collider2D cliffCollider = GetComponent<Collider2D>();
+
+            // Pastikan objek masih valid sebelum dilanjutkan
+            if (objectCollider == null || cliffCollider == null) return;
 
             // Buat array untuk menampung collider yang tumpang tindih
             ContactFilter2D filter = new ContactFilter2D();
@@ -33,15 +39,35 @@ public class Cliffdetector : MonoBehaviour
             {
                 if (other.CompareTag("Sheep"))
                 {
-                    Destroy(other.gameObject); // Hancurkan domba
-                    Debug.Log("A sheep has fallen off the cliff!");
+                    // Pastikan objek masih valid sebelum dihancurkan
+                    if (other.gameObject != null)
+                    {
+                        Destroy(other.gameObject); // Hancurkan domba
+                        sheepFallCount++; // Tambahkan counter domba yang jatuh
+                        Debug.Log("A sheep has fallen off the cliff! Total: " + sheepFallCount);
+
+                        // Periksa apakah jumlah domba yang jatuh mencapai batas
+                        if (sheepFallCount >= maxSheepFalls)
+                        {
+                            Debug.Log("Game Over: Too many sheep have fallen!");
+                            GameOver();
+                        }
+                    }
                 }
                 else if (other.CompareTag("Player"))
                 {
                     Debug.Log("Game Over: The player fell off the cliff!");
-                    // Tambahkan logika Game Over di sini
+                    GameOver();
                 }
             }
         }
+    }
+
+    private void GameOver()
+    {
+        // Logika Game Over, misalnya kembali ke menu utama atau restart level
+        Debug.Log("Game Over triggered!");
+        // Bisa tambahkan kode berikut jika pakai SceneManager
+        // SceneManager.LoadScene("GameOverScene");
     }
 }

@@ -1,3 +1,47 @@
+// using System.Collections;
+// using System.Collections.Generic;
+// using UnityEngine;
+
+// public class sheepgenerator : MonoBehaviour
+// {
+//     public GameObject PREFAB;
+//     public float spawnInterval = 3f; //spawnrate shepe, interchangable 
+
+//     private float timer;
+//     // Start is called before the first frame update
+//     void Start()
+//     {
+//         timer = spawnInterval;
+//     }
+
+//     // Update is called once per frame
+//     void Update()
+//     {
+//         timer = timer - Time.deltaTime;
+//         if (timer <= 0f)
+//         {
+//             SpawnSheep(); // fungsi spawn shepe dijalankan setiap timer mencapai 0 dari waktu yang ditentukan
+//             timer = spawnInterval;
+//         }
+//     }
+
+//     private void SpawnSheep() // fungsi spawn shepe
+//     {
+//         Vector3 spawnPosition = randomPosition(); //spawn akan dilakukan pada posisi acak di FOV Main Camera
+//         GameObject sheep = Instantiate(PREFAB, spawnPosition, Quaternion.identity);
+//     }
+
+
+//     private Vector3 randomPosition() //posisi acak berada diluar cliff dan pada FOV default Main Camera
+//     {
+//         float randomX = Random.Range(-9,9); // default border sumbu x +-[-10, 10] bisa disesuaikan
+//         float randomY = Random.Range(-4,4); // default border sumbu y +-[-5, 5] bisa disesuaikan
+        
+//         return new Vector3(randomX, randomY, 0f); //new shepe spawn coordinate 
+//     }
+
+// }
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,39 +49,45 @@ using UnityEngine;
 public class sheepgenerator : MonoBehaviour
 {
     public GameObject PREFAB;
-    public float spawnInterval = 3f; //spawnrate shepe, interchangable 
+    public float spawnInterval = 3f; // Spawn rate sheep, interchangeable
+    public LayerMask cliffLayer;    // Tambahkan LayerMask untuk mendeteksi cliff
+    public float spawnCheckRadius = 0.5f; // Radius untuk pengecekan overlap dengan cliff
 
     private float timer;
-    // Start is called before the first frame update
+
     void Start()
     {
         timer = spawnInterval;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        timer = timer - Time.deltaTime;
+        timer -= Time.deltaTime;
         if (timer <= 0f)
         {
-            SpawnSheep(); // fungsi spawn shepe dijalankan setiap timer mencapai 0 dari waktu yang ditentukan
+            SpawnSheep(); // Fungsi spawn sheep dijalankan setiap timer mencapai 0
             timer = spawnInterval;
         }
     }
 
-    private void SpawnSheep() // fungsi spawn shepe
+    private void SpawnSheep()
     {
-        Vector3 spawnPosition = randomPosition(); //spawn akan dilakukan pada posisi acak di FOV Main Camera
+        Vector3 spawnPosition = randomPosition();
+
+        // Periksa apakah posisi spawn berada di dalam cliff
+        while (Physics2D.OverlapCircle(spawnPosition, spawnCheckRadius, cliffLayer))
+        {
+            spawnPosition = randomPosition(); // Jika overlap dengan cliff, cari posisi baru
+        }
+
         GameObject sheep = Instantiate(PREFAB, spawnPosition, Quaternion.identity);
     }
 
-
-    private Vector3 randomPosition() //posisi acak berada diluar cliff dan pada FOV default Main Camera
+    private Vector3 randomPosition()
     {
-        float randomX = Random.Range(-9,9); // default border sumbu x +-[-10, 10] bisa disesuaikan
-        float randomY = Random.Range(-4,4); // default border sumbu y +-[-5, 5] bisa disesuaikan
+        float randomX = Random.Range(-9, 9); // Default border sumbu X
+        float randomY = Random.Range(-4, 4); // Default border sumbu Y
         
-        return new Vector3(randomX, randomY, 0f); //new shepe spawn coordinate 
+        return new Vector3(randomX, randomY, 0f);
     }
-
 }
