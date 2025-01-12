@@ -21,5 +21,6 @@ dan tidak terkena meteor, Player akan memerintahkan seekor anjing untuk menghala
    ```
 2. Buka Github Desktop dan clone repositori
 3. Jika ingin melakukan report bug atau tambahan, gunakan fitur Issue pada github
+4. Jelaskan dengan jelas perubahan atau laporan apa yang ingin disampaikan
 
 ## Library
