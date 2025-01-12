@@ -1,4 +1,5 @@
-
+// Nama File: sheepgenerator.cs
+// Fungsi: Mengenerate domba domba yang akan digirng dan muncul satu per satu
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
