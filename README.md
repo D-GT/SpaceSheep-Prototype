@@ -8,9 +8,9 @@ dan tidak terkena meteor, Player akan memerintahkan seekor anjing untuk menghala
 
 ## Cara Menginstall dan Menjalankan prototype
 1. Lakukan clone dari repositori
-   '''bash
+   ```bash
    git clone https://github.com/D-GT/SpaceSheep-Prototype.git
-   '''
+   ```
 3. 
 -	Cara berkontribusi dan melapor Bug
 1.	Buka link Github web dari link ini https://github.com/D-GT/tugab_bubur
