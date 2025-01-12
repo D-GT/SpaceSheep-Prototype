@@ -1,3 +1,5 @@
+// Nama File: CliffDetector.cs
+// Fungsi: Mendetect domba atau player jatuh ke tebing
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,6 +70,6 @@ public class Cliffdetector : MonoBehaviour
         // Logika Game Over, misalnya kembali ke menu utama atau restart level
         Debug.Log("Game Over triggered!");
         Time.timeScale = 0f; // Menghentikan semua aktivitas game
-        // Anda juga bisa menampilkan UI Game Over di sini
     }
 }
+//Update terbaru, hanya diberlakukan untuk sheep untuk mempermudah permainan
