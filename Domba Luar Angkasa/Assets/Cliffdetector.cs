@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Cliffdetector : MonoBehaviour
 {
@@ -67,7 +68,8 @@ public class Cliffdetector : MonoBehaviour
     {
         // Logika Game Over, misalnya kembali ke menu utama atau restart level
         Debug.Log("Game Over triggered!");
-        Time.timeScale = 0f; // Menghentikan semua aktivitas game
+        Time.timeScale = 0f;// Menghentikan semua aktivitas game
+        SceneManager.LoadScene(2);
         // Anda juga bisa menampilkan UI Game Over di sini
     }
 }
